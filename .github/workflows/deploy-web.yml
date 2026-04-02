@@ -45,7 +45,20 @@ jobs:
 
       - name: Normalize web environment
         run: |
-          node -e "const fs = require('node:fs'); const normalize = (name) => { const raw = process.env[name] ?? ''; const cleaned = raw.replace(/^\uFEFF/, '').trim(); if (!cleaned) { throw new Error(`Missing ${name}`); } if (/[^\x20-\x7E]/.test(cleaned)) { throw new Error(`${name} contains non-ASCII characters`); } fs.appendFileSync(process.env.GITHUB_ENV, `${name}=${cleaned}\n`); }; normalize('VITE_SUPABASE_URL'); normalize('VITE_SUPABASE_ANON_KEY');"
+          normalize() {
+            local name="$1"
+            local value="${!name}"
+            value="$(printf '%s' "$value" | perl -CS -pe 's/^\x{FEFF}//; s/^\s+|\s+$//g')"
+            test -n "$value" || { echo "Missing $name"; exit 1; }
+            if printf '%s' "$value" | LC_ALL=C grep -q '[^ -~]'; then
+              echo "$name contains non-ASCII characters"
+              exit 1
+            fi
+            printf '%s=%s\n' "$name" "$value" >> "$GITHUB_ENV"
+          }
+
+          normalize VITE_SUPABASE_URL
+          normalize VITE_SUPABASE_ANON_KEY
 
       - name: Validate web environment
         run: |
