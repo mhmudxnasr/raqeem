@@ -1,51 +1,84 @@
-# Raqeem (رقيم)
+# Raqeem
 
-Raqeem is a sophisticated multi-platform financial tracking and management application designed to give you full control over your personal finances.
+Raqeem is a personal finance app with a native Android client, a React web client, and a Supabase backend for auth, sync, storage, and AI-backed insights.
 
-<div align="center">
-  <img src="app_logo.svg" alt="Raqeem Logo" width="120" height="120">
-  <h3>Modern. Secure. Insightful.</h3>
-</div>
+## Live Links
 
----
+- Web app: [https://mhmudxnasr.github.io/raqeem/#/](https://mhmudxnasr.github.io/raqeem/#/)
+- Android release: [GitHub Releases](https://github.com/mhmudxnasr/raqeem/releases/latest)
 
-- **Android**: Production (v0.0.1) 🟢 [Download Latest APK](https://github.com/mhmudxnasr/raqeem/releases/latest)
-- **Web**: Production (v0.0.1) 🟢 [Launch Web App](https://mhmudxnasr.github.io/raqeem/#/)
+## What Is In This Repo
 
-## 📱 Getting Started (Android)
+- `android/`: Native Android app built with Kotlin and Jetpack Compose
+- `web/`: React + Vite + Tailwind web client
+- `backend/supabase/`: Supabase SQL migrations and Edge Functions
+- `backend/scripts/`: One-off migration utilities, including the Notion import script
+- `docs/`: Product, design, data model, and feature documentation
+- `skills/`: Project-specific agent guidance files
 
-To install Raqeem on your Android device:
+## Current Product Scope
 
-1. **Download the APK**: Visit the [Latest Release](https://github.com/mhmudxnasr/raqeem/releases/latest) on your mobile device and download `app-release.apk`.
-2. **Enable Unknown Sources**:
-   - Go to **Settings** > **Security** or **Privacy**.
-   - Enable **Install from Unknown Sources** (or allow your browser to "Install Unknown Apps").
-3. **Install**: Open the downloaded `.apk` file and follow the on-screen instructions.
-4. **Trust Warning**: You may see a "File might be harmful" warning from Chrome or Android—this is a standard warning for side-loaded apps not originating from the Google Play Store. Since this build is signed with a production key, it is safe to proceed.
+Raqeem is focused on day-to-day personal finance tracking with:
 
-## ✨ Features
+- Email/password auth through Supabase
+- Accounts, balances, and transaction history
+- Budgets and savings goals
+- Analytics dashboards and charts
+- AI insights and finance chat through a Supabase Edge Function proxy
+- Realtime sync on web and sync infrastructure for Android
+- Android biometric/app-lock support
 
-- **Multi-Platform Sync**: Seamlessly sync your financial data across Android and [Web](https://mhmudxnasr.github.io/raqeem/#/).
-- **AI Insights**: Intelligent analysis of your spending habits and financial health.
-- **Secure by Design**: Built on Supabase with robust encryption and privacy-first principles.
-- **Modern UI**: A premium, user-friendly interface designed for clarity and ease of use.
+The web app currently exposes dashboard, transactions, accounts, analytics, budgets, goals, and settings flows. The backend also includes subscriptions and settings tables that support the broader product roadmap.
 
-## 🏗 Architecture
+## Architecture
 
-- **Backend**: [Supabase](https://supabase.com/) (PostgreSQL + Edge Functions)
-- **Android**: Native Kotlin with Jetpack Compose
-- **Web**: React + Vite + Tailwind CSS (Production Ready)
+- Android: Kotlin, Jetpack Compose, Room, WorkManager, Hilt
+- Web: React 18, Vite, Tailwind CSS, Zustand, Recharts, Supabase JS
+- Backend: Supabase Postgres, Realtime, Auth, Storage, Edge Functions
+- AI: `backend/supabase/functions/ai-insights` proxies grounded finance prompts to Groq without exposing the API key to the client
 
-## 🚀 Getting Started
-
-### Android
-The Android application is currently in production. You can find the source code in the `/android` directory.
+## Local Development
 
 ### Web
-You can access the Raqeem web experience directly at [https://mhmudxnasr.github.io/raqeem/](https://mhmudxnasr.github.io/raqeem/#/). The source code is available in the `/web` directory.
 
----
+1. Create `web/.env.local` with:
+   - `VITE_SUPABASE_URL`
+   - `VITE_SUPABASE_ANON_KEY`
+2. Install dependencies:
 
-<p align="center">
-  Built with ❤️ by the Raqeem Team
-</p>
+   ```bash
+   cd web
+   npm ci
+   ```
+
+3. Start the dev server:
+
+   ```bash
+   npm run dev
+   ```
+
+### Android
+
+1. Open `android/local.properties`
+2. Add:
+   - `SUPABASE_URL=...`
+   - `SUPABASE_ANON_KEY=...`
+3. Release signing values are also read from `local.properties`
+4. Build from Android Studio or with Gradle from `android/`
+
+### Supabase Backend
+
+- SQL schema changes live in `backend/supabase/migrations/`
+- The AI function lives in `backend/supabase/functions/ai-insights/index.ts`
+- The optional Notion migration utility is in `backend/scripts/migrate-notion.mjs`
+
+## Deployment
+
+- The web app is deployed to GitHub Pages
+- GitHub Pages is configured to deploy from GitHub Actions on `main`
+- The production build uses the repository subpath base `/raqeem/`
+
+## Notes
+
+- Generated artifacts such as `web/dist`, Android build logs, and Supabase temp files are intentionally not tracked
+- Some root-level XML files are preserved as design/export artifacts from the app exploration work

@@ -57,6 +57,9 @@ android/build/
 android/local.properties
 android/raqeem-device.db
 android/captures/
+android/build_err*.txt
+android/build_out*.txt
+android/compile_log.txt
 *.apk
 *.aab
 *.keystore
@@ -68,5 +71,7 @@ web/dist-ssr/
 web/coverage/
 
 # Backend / Supabase
+backend/scripts/Raqeem.db
 backend/supabase/.temp/
+backend/supabase/supabase/.temp/
 backend/supabase/migrations/.*
