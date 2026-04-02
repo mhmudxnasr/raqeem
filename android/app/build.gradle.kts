@@ -30,8 +30,22 @@ android {
         buildConfigField("String", "SUPABASE_ANON_KEY", "\"${localProps["SUPABASE_ANON_KEY"] ?: ""}\"")
     }
 
+    signingConfigs {
+        create("release") {
+            val localProps = Properties().also { props ->
+                val f = rootProject.file("local.properties")
+                if (f.exists()) props.load(f.inputStream())
+            }
+            storeFile = file(localProps["signing.storeFile"] ?: "raqeem-release.jks")
+            storePassword = localProps["signing.storePassword"]?.toString()
+            keyAlias = localProps["signing.keyAlias"]?.toString()
+            keyPassword = localProps["signing.keyPassword"]?.toString()
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(

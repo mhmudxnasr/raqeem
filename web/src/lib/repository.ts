@@ -241,32 +241,32 @@ export async function fetchFinanceSnapshot(): Promise<FinanceSnapshot> {
   ] = await Promise.all([
     client
       .from('accounts')
-      .select('id, name, type, currency, initial_amount_cents, balance_cents, is_hidden, sort_order, created_at, updated_at, deleted_at')
+      .select('id, user_id, name, type, currency, initial_amount_cents, balance_cents, is_hidden, sort_order, created_at, updated_at, deleted_at')
       .is('deleted_at', null)
       .order('sort_order', { ascending: true }),
     client
       .from('categories')
-      .select('id, name, type, icon, color, budget_cents, created_at, updated_at, deleted_at')
+      .select('id, user_id, name, type, icon, color, budget_cents, created_at, updated_at, deleted_at')
       .is('deleted_at', null)
       .order('name', { ascending: true }),
     client
       .from('transactions')
-      .select('id, account_id, category_id, type, amount_cents, currency, note, date, receipt_url, created_at, updated_at, deleted_at')
+      .select('id, user_id, account_id, category_id, type, amount_cents, currency, note, date, receipt_url, created_at, updated_at, deleted_at')
       .is('deleted_at', null)
       .order('date', { ascending: false }),
     client
       .from('transfers')
-      .select('id, from_account_id, to_account_id, from_amount_cents, to_amount_cents, from_currency, to_currency, exchange_rate, is_currency_conversion, goal_id, note, date, created_at, updated_at, deleted_at')
+      .select('id, user_id, from_account_id, to_account_id, from_amount_cents, to_amount_cents, from_currency, to_currency, exchange_rate, is_currency_conversion, goal_id, note, date, created_at, updated_at, deleted_at')
       .is('deleted_at', null)
       .order('date', { ascending: false }),
     client
       .from('goals')
-      .select('id, name, target_cents, current_cents, currency, deadline, is_completed, icon, note, created_at, updated_at, deleted_at')
+      .select('id, user_id, name, target_cents, current_cents, currency, deadline, is_completed, icon, note, created_at, updated_at, deleted_at')
       .is('deleted_at', null)
       .order('created_at', { ascending: true }),
     client
       .from('subscriptions')
-      .select('id, account_id, category_id, name, amount_cents, currency, billing_cycle, next_billing_date, is_active, auto_log, created_at, updated_at, deleted_at')
+      .select('id, user_id, account_id, category_id, name, amount_cents, currency, billing_cycle, next_billing_date, is_active, auto_log, created_at, updated_at, deleted_at')
       .is('deleted_at', null)
       .order('next_billing_date', { ascending: true }),
     client

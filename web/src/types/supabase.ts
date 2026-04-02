@@ -30,6 +30,7 @@ export interface Database {
           deleted_at?: string | null;
         };
         Update: Partial<Database['public']['Tables']['accounts']['Row']>;
+        Relationships: [];
       };
       categories: {
         Row: {
@@ -56,6 +57,7 @@ export interface Database {
           deleted_at?: string | null;
         };
         Update: Partial<Database['public']['Tables']['categories']['Row']>;
+        Relationships: [];
       };
       transactions: {
         Row: {
@@ -88,6 +90,7 @@ export interface Database {
           deleted_at?: string | null;
         };
         Update: Partial<Database['public']['Tables']['transactions']['Row']>;
+        Relationships: [];
       };
       transfers: {
         Row: {
@@ -126,6 +129,7 @@ export interface Database {
           deleted_at?: string | null;
         };
         Update: Partial<Database['public']['Tables']['transfers']['Row']>;
+        Relationships: [];
       };
       goals: {
         Row: {
@@ -158,6 +162,7 @@ export interface Database {
           deleted_at?: string | null;
         };
         Update: Partial<Database['public']['Tables']['goals']['Row']>;
+        Relationships: [];
       };
       subscriptions: {
         Row: {
@@ -192,6 +197,7 @@ export interface Database {
           deleted_at?: string | null;
         };
         Update: Partial<Database['public']['Tables']['subscriptions']['Row']>;
+        Relationships: [];
       };
       settings: {
         Row: {
@@ -211,7 +217,12 @@ export interface Database {
           updated_at?: string;
         };
         Update: Partial<Database['public']['Tables']['settings']['Row']>;
+        Relationships: [];
       };
     };
+    Views: Record<string, never>;
+    Functions: Record<string, never>;
+    Enums: Record<string, never>;
+    CompositeTypes: Record<string, never>;
   };
 }

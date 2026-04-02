@@ -10,11 +10,12 @@ export function useRealtime(): void {
   const refresh = useFinanceStore((state) => state.refresh);
 
   useEffect(() => {
-    if (isDemoMode || !supabase || !user) {
+    const client = supabase;
+    if (isDemoMode || !client || !user) {
       return undefined;
     }
 
-    const channel = supabase
+    const channel = client
       .channel('raqeem-db-changes')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'transactions' }, () => {
         void refresh();
@@ -37,7 +38,7 @@ export function useRealtime(): void {
       .subscribe();
 
     return () => {
-      void supabase.removeChannel(channel);
+      void client.removeChannel(channel);
     };
   }, [isDemoMode, refresh, user]);
 }

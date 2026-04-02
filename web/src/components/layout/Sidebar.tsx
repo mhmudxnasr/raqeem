@@ -41,7 +41,7 @@ export function Sidebar({ isDemoMode }: SidebarProps) {
                 isActive && 'bg-subtle text-[#F0F0F0]',
               )
             }
-            end={item.end}
+            end={Boolean(item.end)}
             to={item.to}
           >
             {({ isActive }) => (

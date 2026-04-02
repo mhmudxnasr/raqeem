@@ -8,9 +8,9 @@ interface SelectOption {
 }
 
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
-  label?: string;
+  label?: string | undefined;
   options: SelectOption[];
-  error?: string;
+  error?: string | undefined;
 }
 
 export function Select({ label, options, error, className, id, ...props }: SelectProps) {
