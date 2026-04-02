@@ -9,14 +9,20 @@ Raqeem is a sophisticated multi-platform financial tracking and management appli
 
 ---
 
-## 🛠 Project Status
+## 🚀 Status
+- **Android**: Production (v0.0.1) 🟢 [Download Latest APK](https://github.com/mhmudxnasr/raqeem/releases/latest)
+- **Web**: Under Development 🛠️
 
-| Platform | Status | Version |
-| :--- | :--- | :--- |
-| **Android** | 🚀 **Production** | `v0.0.1` |
-| **Web** | 🚧 **Under Development** | `N/A` |
+## 📱 Getting Started (Android)
 
----
+To install Raqeem on your Android device:
+
+1. **Download the APK**: Visit the [Latest Release](https://github.com/mhmudxnasr/raqeem/releases/latest) on your mobile device and download `app-release.apk`.
+2. **Enable Unknown Sources**:
+   - Go to **Settings** > **Security** or **Privacy**.
+   - Enable **Install from Unknown Sources** (or allow your browser to "Install Unknown Apps").
+3. **Install**: Open the downloaded `.apk` file and follow the on-screen instructions.
+4. **Trust Warning**: You may see a "File might be harmful" warning from Chrome or Android—this is a standard warning for side-loaded apps not originating from the Google Play Store. Since this build is signed with a production key, it is safe to proceed.
 
 ## ✨ Features
 
