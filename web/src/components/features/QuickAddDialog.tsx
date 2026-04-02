@@ -184,7 +184,7 @@ export function QuickAddDialog({ isOpen, initialMode, defaultGoalId = null, onCl
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4 py-8 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4 py-8">
       <div className="w-full max-w-2xl rounded-2xl border border-white/10 bg-elevated">
         <div className="flex items-center justify-between border-b border-white/5 px-6 py-5">
           <div>

@@ -25,7 +25,7 @@ export function TransactionTable({ entries, selectedId, onSelect }: TransactionT
     <div className="overflow-hidden rounded-xl border border-white/5 bg-surface">
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-white/5">
-          <thead className="bg-elevated/60">
+          <thead className="bg-elevated">
             <tr className="text-left text-[11px] uppercase tracking-[0.08em] text-[#5A5A5A]">
               <th className="px-4 py-3">Date</th>
               <th className="px-4 py-3">Type</th>

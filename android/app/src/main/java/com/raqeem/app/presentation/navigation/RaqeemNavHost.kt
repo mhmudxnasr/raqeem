@@ -74,6 +74,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.runtime.key
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.res.painterResource
+import com.raqeem.app.R
 import kotlinx.coroutines.launch
 
 @Composable
@@ -118,14 +120,26 @@ private fun LoadingGate() {
         modifier = Modifier
             .fillMaxSize()
             .background(AppColors.bgBase)
-            .padding(20.dp),
+            .padding(24.dp),
         contentAlignment = Alignment.Center,
     ) {
-        SurfaceCard {
-            Text(
-                text = "Restoring your session and syncing local finance data...",
-                color = AppColors.textSecondary,
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(24.dp)
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_splash_logo),
+                contentDescription = null,
+                modifier = Modifier.size(80.dp),
+                tint = Color.Unspecified
             )
+            SurfaceCard {
+                Text(
+                    text = "Restoring your session and syncing local finance data...",
+                    color = AppColors.textSecondary,
+                    modifier = Modifier.padding(12.dp)
+                )
+            }
         }
     }
 }

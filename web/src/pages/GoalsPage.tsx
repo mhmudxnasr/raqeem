@@ -32,9 +32,9 @@ export function GoalsPage() {
         </div>
 
         <div className="space-y-6">
-          <Card className="glass-card border-white/5 space-y-1 transition-transform hover:scale-[1.02]">
-            <p className="eyebrow">Total Funded</p>
-            <p className="font-serif text-4xl font-bold tracking-tight text-white">{formatAmount(totalFunded, 'USD')}</p>
+          <Card className="space-y-1">
+            <p className="section-label">Total Funded</p>
+            <p className="font-mono text-3xl font-medium text-white">{formatAmount(totalFunded, 'USD')}</p>
             <p className="mt-2 text-sm text-[#A0A0A0]">Current net worth is {formatAmount(calculateNetWorthCents(snapshot), 'USD')}.</p>
           </Card>
         </div>

@@ -37,13 +37,13 @@ export function AppShell() {
     <div className="flex min-h-screen bg-void">
       <Sidebar />
       <div className="flex min-h-screen flex-1 flex-col">
-        <header className="sticky top-0 z-40 border-b border-white/5 bg-void/60 px-4 py-4 backdrop-blur-xl md:px-8">
+        <header className="sticky top-0 z-40 border-b border-white/5 bg-base px-4 py-4 md:px-8">
           <div className="mx-auto flex w-full max-w-[1240px] items-center justify-between gap-4">
             <div>
-              <p className="eyebrow">Raqeem</p>
-              <h1 className="font-serif text-2xl font-bold tracking-tight text-white">Workspace</h1>
+              <p className="section-label">Raqeem</p>
+              <h1 className="text-lg font-semibold tracking-tight text-white">Workspace</h1>
             </div>
-            <Button className="h-10 gap-2 px-5 shadow-lg shadow-purple-500/20" onClick={() => openQuickAdd('expense')}>
+            <Button className="h-10 gap-2 px-5" onClick={() => openQuickAdd('expense')}>
               <Plus className="h-4 w-4 stroke-[3]" />
               <span className="font-semibold">Add</span>
             </Button>
@@ -51,10 +51,10 @@ export function AppShell() {
         </header>
 
         {error ? (
-          <div className="border-b border-rose-400/20 bg-rose-400/10 px-4 py-3 text-sm text-negative md:px-8">
+          <div className="border-b border-red-500/20 bg-red-500/5 px-4 py-3 text-sm text-negative md:px-8">
             <div className="mx-auto flex max-w-[1200px] items-center justify-between gap-4">
               <span>{error}</span>
-              <button className="text-xs uppercase tracking-[0.08em] text-rose-200" onClick={clearError} type="button">
+              <button className="text-xs font-medium uppercase tracking-widest text-[#A0A0A0] hover:text-white" onClick={clearError} type="button">
                 Dismiss
               </button>
             </div>

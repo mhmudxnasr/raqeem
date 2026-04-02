@@ -10,7 +10,7 @@ interface BudgetProgressProps {
 
 export function BudgetProgress({ summary }: BudgetProgressProps) {
   return (
-    <div className="space-y-3 rounded-xl border border-white/5 bg-surface/70 p-4">
+    <div className="space-y-3 rounded-xl border border-white/5 bg-elevated p-4">
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-sm font-medium text-[#F0F0F0]">{summary.name}</p>

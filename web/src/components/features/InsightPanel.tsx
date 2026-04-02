@@ -96,28 +96,26 @@ export function InsightPanel({ snapshot, month }: InsightPanelProps) {
     .filter(Boolean);
 
   return (
-    <Card className="glass-card flex flex-col border-white/5 p-6 h-fit sticky top-24">
+    <Card className="flex flex-col h-fit sticky top-24">
       <div className="flex items-start justify-between gap-4 mb-6">
         <div>
-          <p className="eyebrow">Intelligence</p>
-          <h3 className="mt-1 flex items-center gap-2 text-lg font-bold tracking-tight text-white">
-            <Sparkles className="h-4 w-4 text-purple-400 animate-glow" />
+          <p className="section-label">Intelligence</p>
+          <h3 className="mt-1 flex items-center gap-2 text-base font-semibold tracking-tight text-white">
+            <Sparkles className="h-4 w-4 text-purple-400" />
             AI Finance Insights
           </h3>
         </div>
       </div>
 
       <div className="space-y-4 mb-8">
-        <div className="rounded-2xl border border-white/5 bg-white/5 p-5 backdrop-blur-sm relative overflow-hidden">
-          <div className="absolute -left-4 -top-4 h-16 w-16 rounded-full bg-purple-500/5 blur-xl"></div>
+        <div className="rounded-xl border border-white/5 bg-elevated p-5">
           {isLoading && insightLines.length === 0 ? (
-            <div className="flex items-center gap-3 py-2 text-sm text-[#A0A0A0]">
-              <div className="h-2 w-2 animate-bounce rounded-full bg-purple-500"></div>
-              <div className="h-2 w-2 animate-bounce rounded-full bg-purple-500 delay-75"></div>
-              <div className="h-2 w-2 animate-bounce rounded-full bg-purple-500 delay-150"></div>
+            <div className="flex items-center gap-2 py-2 text-sm text-[#A0A0A0]">
+              <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-purple-500"></div>
+              <span className="text-xs text-[#5A5A5A]">Analyzing your data...</span>
             </div>
           ) : error ? (
-            <p className="text-sm text-rose-400 font-medium">{error}</p>
+            <p className="text-sm text-negative">{error}</p>
           ) : (
             <div className="space-y-3">
               {insightLines.map((line, i) => (
@@ -131,12 +129,12 @@ export function InsightPanel({ snapshot, month }: InsightPanelProps) {
       </div>
 
       <div className="mb-8 overflow-hidden">
-        <p className="eyebrow mb-4">Prompt Library</p>
+        <p className="section-label mb-4">Prompt Library</p>
         <div className="flex flex-wrap gap-2">
           {suggestions.map((suggestion) => (
             <button
               key={suggestion}
-              className="rounded-full border border-white/5 bg-white/5 px-4 py-2 text-[11px] font-semibold text-[#A0A0A0] transition-all hover:bg-purple-500/10 hover:text-purple-300 hover:border-purple-500/20 active:scale-95"
+              className="rounded-lg border border-white/5 bg-elevated px-3 py-2 text-[11px] font-semibold text-[#A0A0A0] transition-colors hover:bg-subtle hover:text-white"
               onClick={() => {
                 void submitQuestion(suggestion);
               }}
@@ -152,13 +150,13 @@ export function InsightPanel({ snapshot, month }: InsightPanelProps) {
         {messages.slice(-2).map((message, index) => (
           <div 
             key={`${message.role}-${index}`} 
-            className={`rounded-2xl p-4 border border-white/5 ${
+            className={`rounded-xl p-4 border border-white/5 ${
               message.role === 'user' 
-                ? "bg-white/5 ml-4" 
-                : "bg-purple-500/5 mr-4"
+                ? "bg-elevated ml-4" 
+                : "bg-subtle mr-4"
             }`}
           >
-            <p className="eyebrow mb-2">{message.role === 'user' ? 'You' : 'Raqeem AI'}</p>
+            <p className="section-label mb-2">{message.role === 'user' ? 'You' : 'Raqeem AI'}</p>
             <p className="whitespace-pre-line text-sm leading-relaxed text-[#A0A0A0]">{message.content}</p>
           </div>
         ))}
@@ -166,7 +164,7 @@ export function InsightPanel({ snapshot, month }: InsightPanelProps) {
 
       <div className="mt-auto flex gap-3">
         <input
-          className="flex-1 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-[#5A5A5A] transition-all focus:border-purple-500/50 focus:outline-none focus:ring-1 focus:ring-purple-500/20"
+          className="input flex-1"
           onChange={(event) => setInput(event.target.value)}
           placeholder="Ask about your trajectory..."
           value={input}

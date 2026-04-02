@@ -34,22 +34,22 @@ export function BudgetsPage() {
 
       <div className="grid gap-6 xl:grid-cols-[340px_minmax(0,1fr)]">
         <div className="space-y-6">
-          <Card className="glass-card border-white/5 space-y-1 transition-transform hover:scale-[1.02]">
-            <p className="eyebrow">Total Spent</p>
-            <p className="font-serif text-4xl font-bold tracking-tight text-white">{formatAmount(totalSpent, 'USD')}</p>
+          <Card className="space-y-1">
+            <p className="section-label">Total Spent</p>
+            <p className="font-mono text-3xl font-medium text-white">{formatAmount(totalSpent, 'USD')}</p>
             <p className="mt-2 text-sm text-[#A0A0A0]">Against a total category budget of {formatAmount(totalBudget, 'USD')}.</p>
           </Card>
           
-          <Card className="glass-card border-white/5 space-y-1 transition-transform hover:scale-[1.02]">
-            <p className="eyebrow">Recurring Spend</p>
-            <p className="font-serif text-4xl font-bold tracking-tight text-white">{formatAmount(getSubscriptionMonthlyTotal(snapshot), 'USD')}</p>
+          <Card className="space-y-1">
+            <p className="section-label">Recurring Spend</p>
+            <p className="font-mono text-3xl font-medium text-white">{formatAmount(getSubscriptionMonthlyTotal(snapshot), 'USD')}</p>
             <p className="mt-2 text-sm text-[#A0A0A0]">Monthly run-rate across all active recursive services.</p>
           </Card>
         </div>
 
         <div className="space-y-6">
-          <Card className="glass-card border-white/5 space-y-4">
-            <p className="eyebrow">Category Pulse</p>
+          <Card className="space-y-4">
+            <p className="section-label">Category Pulse</p>
             <div className="space-y-3 pt-2">
               {budgets.map((summary) => (
                 <BudgetProgress key={summary.categoryId} summary={summary} />
@@ -57,20 +57,20 @@ export function BudgetsPage() {
             </div>
           </Card>
 
-          <Card className="glass-card border-white/5 space-y-4">
-            <p className="eyebrow">Upcoming Subscriptions</p>
-            <div className="divide-y divide-white/10 pt-2">
+          <Card className="space-y-4">
+            <p className="section-label">Upcoming Subscriptions</p>
+            <div className="divide-y divide-white/5 pt-2">
               {subscriptions
                 .filter((subscription) => subscription.deletedAt === null && subscription.isActive)
                 .map((subscription) => (
                   <div key={subscription.id} className="flex items-center justify-between gap-4 py-4">
                     <div>
-                      <p className="text-sm font-medium text-[#F0F0F0]">{subscription.name}</p>
+                      <p className="text-sm font-medium text-white">{subscription.name}</p>
                       <p className="text-xs text-[#5A5A5A]">Next billing {subscription.nextBillingDate}</p>
                     </div>
                     <div className="text-right">
-                      <p className="font-mono text-sm text-[#F0F0F0]">{formatAmount(subscription.amountCents, subscription.currency)}</p>
-                      <p className="text-xs uppercase tracking-[0.08em] text-[#5A5A5A]">{subscription.billingCycle}</p>
+                      <p className="font-mono text-sm text-white">{formatAmount(subscription.amountCents, subscription.currency)}</p>
+                      <p className="section-label">{subscription.billingCycle}</p>
                     </div>
                   </div>
                 ))}

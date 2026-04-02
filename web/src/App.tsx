@@ -1,5 +1,4 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { LockKeyhole } from 'lucide-react';
 import { Suspense, lazy, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Navigate, Route, Routes } from 'react-router-dom';
@@ -9,6 +8,7 @@ import { AppShell } from './components/layout/AppShell';
 import { Button } from './components/ui/Button';
 import { Card } from './components/ui/Card';
 import { Input } from './components/ui/Input';
+import { Logo } from './components/ui/Logo';
 import { useRealtime } from './hooks/useRealtime';
 import { supabase } from './lib/supabase';
 import { useAuthStore } from './store/useAuthStore';
@@ -52,30 +52,27 @@ function AuthScreen() {
   };
 
   return (
-    <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-void px-4 py-10 selection:bg-purple-500/30">
-      {/* Background Atmosphere */}
-      <div className="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 animate-pulse-soft rounded-full bg-purple-600/10 blur-[120px]"></div>
-      
-      <div className="z-10 w-full max-w-md animate-fade-slide">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-void px-4 py-10">
+      <div className="w-full max-w-md animate-fadeSlide">
         <div className="mb-8 text-center">
-          <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 shadow-xl shadow-purple-500/20">
-            <LockKeyhole className="h-8 w-8 text-white" />
+          <div className="mx-auto mb-5 flex justify-center">
+            <Logo size={64} />
           </div>
-          <p className="eyebrow mx-auto mb-2 w-fit">Authentication Required</p>
-          <h1 className="font-serif text-4xl font-bold tracking-tight text-white md:text-5xl">Raqeem</h1>
-          <p className="mt-3 text-sm text-[#A0A0A0]">Quiet authority for your money.</p>
+          <p className="section-label mb-2">Authentication Required</p>
+          <h1 className="text-3xl font-bold tracking-tight text-white">Raqeem</h1>
+          <p className="mt-2 text-sm text-[#A0A0A0]">Quiet authority for your money.</p>
         </div>
 
-        <Card className="glass-card space-y-6 border-white/5 p-8 shadow-2xl">
+        <Card className="space-y-6 p-8">
           {!isConfigured ? (
-            <div className="rounded-xl border border-amber-400/20 bg-amber-400/10 p-4 text-xs leading-relaxed text-amber-200/80">
-              <p className="font-semibold text-amber-200 uppercase tracking-wider mb-1">Configuration Required</p>
+            <div className="rounded-lg border border-amber-400/20 bg-amber-400/5 p-4 text-xs leading-relaxed text-amber-200/80">
+              <p className="section-label mb-1 text-amber-200">Configuration Required</p>
               The web app needs its Supabase environment variables before login can work.
             </div>
           ) : null}
           
           {authError ? (
-            <div className="rounded-xl border border-rose-400/20 bg-rose-400/10 p-4 text-sm text-negative animate-shake">
+            <div className="rounded-lg border border-red-500/20 bg-red-500/5 p-4 text-sm text-negative">
               {authError}
             </div>
           ) : null}
@@ -87,7 +84,6 @@ function AuthScreen() {
                 label="Email address" 
                 placeholder="name@example.com" 
                 {...register('email')} 
-                className="bg-white/5 border-white/10 focus:border-purple-500/50"
               />
               <Input 
                 error={errors.password?.message} 
@@ -95,12 +91,11 @@ function AuthScreen() {
                 type="password" 
                 placeholder="••••••••"
                 {...register('password')} 
-                className="bg-white/5 border-white/10 focus:border-purple-500/50"
               />
             </div>
 
             <Button 
-              className="w-full h-12 gap-2 text-base font-semibold shadow-lg shadow-purple-500/20 transition-all hover:scale-[1.02] active:scale-[0.98]" 
+              className="w-full h-12 text-sm font-semibold" 
               disabled={isSubmitting || !isConfigured} 
               type="submit"
             >
@@ -110,16 +105,14 @@ function AuthScreen() {
                   Authenticating...
                 </span>
               ) : (
-                <>
-                  <span>Sign in to Workspace</span>
-                </>
+                'Sign in to Workspace'
               )}
             </Button>
           </form>
         </Card>
 
-        <div className="mt-8 text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/5 bg-white/5 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.2em] text-[#5A5A5A]">
+        <div className="mt-6 text-center">
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/5 bg-elevated px-3 py-1 text-[10px] font-medium uppercase tracking-widest text-[#5A5A5A]">
             Production Release v0.0.1
           </span>
         </div>
@@ -172,7 +165,7 @@ export function App() {
 
   if (status === 'loading') {
     return (
-      <div className="flex min-h-screen items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center bg-void">
         <p className="text-sm text-[#A0A0A0]">Loading workspace...</p>
       </div>
     );
@@ -185,7 +178,7 @@ export function App() {
   return (
     <Suspense
       fallback={
-        <div className="flex min-h-screen items-center justify-center">
+        <div className="flex min-h-screen items-center justify-center bg-void">
           <p className="text-sm text-[#A0A0A0]">Loading page...</p>
         </div>
       }

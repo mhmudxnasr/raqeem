@@ -28,10 +28,10 @@ export function AccountsPage() {
     <>
       <PageHeader eyebrow="Accounts" title="Balances and account flows" description="Every balance stays hidden until you decide to reveal it." />
 
-      <Card className="glass-card flex flex-col justify-between gap-4 border-white/5 md:flex-row md:items-center">
+      <Card className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
         <div className="space-y-1">
-          <p className="eyebrow">Net worth</p>
-          <p className="font-serif text-5xl font-bold tracking-tight text-white">{showNetWorth ? formatAmount(netWorth, 'USD') : '$••••••'}</p>
+          <p className="section-label">Net worth</p>
+          <p className="font-mono text-4xl font-medium text-white">{showNetWorth ? formatAmount(netWorth, 'USD') : '$••••••'}</p>
         </div>
         <Button
           onClick={() => setShowNetWorth((current) => !current)}

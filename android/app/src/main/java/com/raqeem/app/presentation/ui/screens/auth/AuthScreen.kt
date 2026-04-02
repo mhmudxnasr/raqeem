@@ -34,7 +34,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.ui.res.painterResource
+import androidx.compose.foundation.layout.size
+import com.raqeem.app.R
 import com.raqeem.app.presentation.ui.components.SurfaceCard
 import com.raqeem.app.presentation.ui.theme.AppColors
 import com.raqeem.app.presentation.ui.theme.AppTypography
@@ -59,11 +63,12 @@ fun AuthScreen(
             .padding(horizontal = 20.dp, vertical = 32.dp),
         verticalArrangement = Arrangement.spacedBy(20.dp),
     ) {
-        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-            Text(
-                text = "RAQEEM",
-                style = MaterialTheme.typography.labelLarge,
-                color = AppColors.textMuted,
+        Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_splash_logo),
+                contentDescription = null,
+                modifier = Modifier.size(64.dp),
+                tint = Color.Unspecified
             )
             Text(
                 text = "Your ledger,\nwithout the noise.",
