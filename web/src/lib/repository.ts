@@ -1,9 +1,6 @@
-import { mockFinanceSnapshot } from './mock-data';
 import { isSupabaseConfigured, supabase } from './supabase';
 import type { FinanceSnapshot, NewTransactionInput, NewTransferInput, Settings, Transaction, Transfer } from '../types';
 import type { Database } from '../types/supabase';
-
-const DEMO_STORAGE_KEY = 'raqeem-web-demo-db-v1';
 
 function cloneSnapshot<T>(value: T): T {
   return JSON.parse(JSON.stringify(value)) as T;
@@ -59,32 +56,6 @@ function normalizeSnapshot(snapshot: FinanceSnapshot): FinanceSnapshot {
   });
 
   return normalized;
-}
-
-function loadDemoSnapshot(): FinanceSnapshot {
-  if (typeof window === 'undefined') {
-    return normalizeSnapshot(mockFinanceSnapshot);
-  }
-
-  const stored = window.localStorage.getItem(DEMO_STORAGE_KEY);
-  if (!stored) {
-    return normalizeSnapshot(mockFinanceSnapshot);
-  }
-
-  try {
-    return normalizeSnapshot(JSON.parse(stored) as FinanceSnapshot);
-  } catch {
-    return normalizeSnapshot(mockFinanceSnapshot);
-  }
-}
-
-let demoSnapshot = loadDemoSnapshot();
-
-function persistDemoSnapshot(snapshot: FinanceSnapshot): void {
-  demoSnapshot = normalizeSnapshot(snapshot);
-  if (typeof window !== 'undefined') {
-    window.localStorage.setItem(DEMO_STORAGE_KEY, JSON.stringify(demoSnapshot));
-  }
 }
 
 function mapAccount(row: Database['public']['Tables']['accounts']['Row']) {
@@ -201,7 +172,7 @@ function mapSettings(row: Database['public']['Tables']['settings']['Row']): Sett
 
 function getClient() {
   if (!isSupabaseConfigured || !supabase) {
-    return null;
+    throw new Error('Supabase is not configured for the web app.');
   }
 
   return supabase;
@@ -226,9 +197,6 @@ async function getCurrentUserId(): Promise<string> {
 
 export async function fetchFinanceSnapshot(): Promise<FinanceSnapshot> {
   const client = getClient();
-  if (!client) {
-    return normalizeSnapshot(demoSnapshot);
-  }
 
   const [
     accountsResult,
@@ -296,26 +264,6 @@ export async function fetchFinanceSnapshot(): Promise<FinanceSnapshot> {
 
 export async function createTransaction(input: NewTransactionInput): Promise<void> {
   const client = getClient();
-  if (!client) {
-    const snapshot = cloneSnapshot(demoSnapshot);
-    snapshot.transactions.unshift({
-      id: crypto.randomUUID(),
-      accountId: input.accountId,
-      categoryId: input.categoryId,
-      type: input.type,
-      amountCents: input.amountCents,
-      currency: input.currency,
-      note: input.note,
-      date: input.date,
-      receiptUrl: null,
-      createdAt: nowIso(),
-      updatedAt: nowIso(),
-      deletedAt: null,
-    });
-    persistDemoSnapshot(snapshot);
-    return;
-  }
-
   const userId = await getCurrentUserId();
   const { error } = await client.from('transactions').insert({
     user_id: userId,
@@ -335,27 +283,6 @@ export async function createTransaction(input: NewTransactionInput): Promise<voi
 
 export async function updateTransaction(input: NewTransactionInput & { id: string }): Promise<void> {
   const client = getClient();
-  if (!client) {
-    const snapshot = cloneSnapshot(demoSnapshot);
-    snapshot.transactions = snapshot.transactions.map((transaction) =>
-      transaction.id === input.id
-        ? {
-            ...transaction,
-            accountId: input.accountId,
-            categoryId: input.categoryId,
-            type: input.type,
-            amountCents: input.amountCents,
-            currency: input.currency,
-            note: input.note,
-            date: input.date,
-            updatedAt: nowIso(),
-          }
-        : transaction,
-    );
-    persistDemoSnapshot(snapshot);
-    return;
-  }
-
   const { error } = await client
     .from('transactions')
     .update({
@@ -376,15 +303,6 @@ export async function updateTransaction(input: NewTransactionInput & { id: strin
 
 export async function softDeleteTransaction(id: string): Promise<void> {
   const client = getClient();
-  if (!client) {
-    const snapshot = cloneSnapshot(demoSnapshot);
-    snapshot.transactions = snapshot.transactions.map((transaction) =>
-      transaction.id === id ? { ...transaction, deletedAt: nowIso(), updatedAt: nowIso() } : transaction,
-    );
-    persistDemoSnapshot(snapshot);
-    return;
-  }
-
   const { error } = await client.from('transactions').update({ deleted_at: nowIso() }).eq('id', id);
   if (error) {
     throw new Error('Failed to delete the transaction.');
@@ -393,29 +311,6 @@ export async function softDeleteTransaction(id: string): Promise<void> {
 
 export async function createTransfer(input: NewTransferInput): Promise<void> {
   const client = getClient();
-  if (!client) {
-    const snapshot = cloneSnapshot(demoSnapshot);
-    snapshot.transfers.unshift({
-      id: crypto.randomUUID(),
-      fromAccountId: input.fromAccountId,
-      toAccountId: input.toAccountId,
-      fromAmountCents: input.fromAmountCents,
-      toAmountCents: input.toAmountCents,
-      fromCurrency: input.fromCurrency,
-      toCurrency: input.toCurrency,
-      exchangeRate: input.exchangeRate,
-      isCurrencyConversion: input.fromCurrency !== input.toCurrency,
-      goalId: input.goalId,
-      note: input.note,
-      date: input.date,
-      createdAt: nowIso(),
-      updatedAt: nowIso(),
-      deletedAt: null,
-    });
-    persistDemoSnapshot(snapshot);
-    return;
-  }
-
   const userId = await getCurrentUserId();
   const { error } = await client.from('transfers').insert({
     user_id: userId,
@@ -439,17 +334,6 @@ export async function createTransfer(input: NewTransferInput): Promise<void> {
 
 export async function updateSettings(changes: Partial<Settings>): Promise<void> {
   const client = getClient();
-  if (!client) {
-    const snapshot = cloneSnapshot(demoSnapshot);
-    snapshot.settings = {
-      ...snapshot.settings,
-      ...changes,
-      updatedAt: nowIso(),
-    };
-    persistDemoSnapshot(snapshot);
-    return;
-  }
-
   const userId = await getCurrentUserId();
   const payload: Database['public']['Tables']['settings']['Update'] = {};
 

@@ -7,18 +7,21 @@ interface AuthState {
   user: UserSummary | null;
   status: 'loading' | 'ready';
   error: string | null;
-  isDemoMode: boolean;
+  isConfigured: boolean;
   initialize: () => Promise<void>;
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
+  syncSessionUser: (user: { id: string; email?: string } | null) => void;
   clearError: () => void;
 }
+
+const missingConfigMessage = 'Supabase is not configured for the web app. Add the Vite Supabase env vars and reload.';
 
 function buildUserSummary(id: string, email: string | undefined): UserSummary {
   return {
     id,
-    email: email ?? 'demo@raqeem.app',
-    displayName: 'Mahmud',
+    email: email ?? '',
+    displayName: email?.split('@')[0] ?? 'Raqeem',
   };
 }
 
@@ -26,14 +29,14 @@ export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   status: 'loading',
   error: null,
-  isDemoMode: !isSupabaseConfigured,
+  isConfigured: isSupabaseConfigured,
   initialize: async () => {
     if (!isSupabaseConfigured || !supabase) {
       set({
-        user: buildUserSummary('demo-user', 'demo@raqeem.app'),
+        user: null,
         status: 'ready',
-        error: null,
-        isDemoMode: true,
+        error: missingConfigMessage,
+        isConfigured: false,
       });
       return;
     }
@@ -44,7 +47,7 @@ export const useAuthStore = create<AuthState>((set) => ({
     } = await supabase.auth.getSession();
 
     if (error) {
-      set({ user: null, status: 'ready', error: 'Unable to restore your session.', isDemoMode: false });
+      set({ user: null, status: 'ready', error: 'Unable to restore your session.', isConfigured: true });
       return;
     }
 
@@ -52,13 +55,13 @@ export const useAuthStore = create<AuthState>((set) => ({
       user: session?.user ? buildUserSummary(session.user.id, session.user.email) : null,
       status: 'ready',
       error: null,
-      isDemoMode: false,
+      isConfigured: true,
     });
   },
   signIn: async (email, password) => {
     if (!isSupabaseConfigured || !supabase) {
-      set({ user: buildUserSummary('demo-user', email), status: 'ready', error: null, isDemoMode: true });
-      return;
+      set({ user: null, status: 'ready', error: missingConfigMessage, isConfigured: false });
+      throw new Error(missingConfigMessage);
     }
 
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
@@ -67,12 +70,12 @@ export const useAuthStore = create<AuthState>((set) => ({
       throw new Error(error?.message ?? 'Sign in failed.');
     }
 
-    set({ user: buildUserSummary(data.user.id, data.user.email), status: 'ready', error: null, isDemoMode: false });
+    set({ user: buildUserSummary(data.user.id, data.user.email), status: 'ready', error: null, isConfigured: true });
   },
   signOut: async () => {
     if (!isSupabaseConfigured || !supabase) {
-      set({ user: buildUserSummary('demo-user', 'demo@raqeem.app'), status: 'ready', error: null, isDemoMode: true });
-      return;
+      set({ user: null, status: 'ready', error: missingConfigMessage, isConfigured: false });
+      throw new Error(missingConfigMessage);
     }
 
     const { error } = await supabase.auth.signOut();
@@ -81,7 +84,15 @@ export const useAuthStore = create<AuthState>((set) => ({
       throw new Error(error.message);
     }
 
-    set({ user: null, error: null, status: 'ready', isDemoMode: false });
+    set({ user: null, error: null, status: 'ready', isConfigured: true });
+  },
+  syncSessionUser: (user) => {
+    set({
+      user: user ? buildUserSummary(user.id, user.email) : null,
+      status: 'ready',
+      error: null,
+      isConfigured: isSupabaseConfigured,
+    });
   },
   clearError: () => {
     set({ error: null });

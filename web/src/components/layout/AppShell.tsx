@@ -5,7 +5,6 @@ import { Outlet, useOutletContext } from 'react-router-dom';
 import { QuickAddDialog } from '../features/QuickAddDialog';
 import { Sidebar } from './Sidebar';
 import { Button } from '../ui/Button';
-import { useAuthStore } from '../../store/useAuthStore';
 import { useFinanceStore } from '../../store/useFinanceStore';
 import type { QuickAddMode } from '../../types';
 
@@ -18,7 +17,6 @@ export function useAppShellContext() {
 }
 
 export function AppShell() {
-  const isDemoMode = useAuthStore((state) => state.isDemoMode);
   const error = useFinanceStore((state) => state.error);
   const clearError = useFinanceStore((state) => state.clearError);
   const [dialogState, setDialogState] = useState<{ isOpen: boolean; mode: QuickAddMode; goalId: string | null }>({
@@ -36,21 +34,21 @@ export function AppShell() {
   };
 
   return (
-    <div className="flex min-h-screen bg-base">
-      <Sidebar isDemoMode={isDemoMode} />
+    <div className="flex min-h-screen bg-void">
+      <Sidebar />
       <div className="flex min-h-screen flex-1 flex-col">
-        <div className="border-b border-white/5 bg-base/95 px-4 py-4 backdrop-blur md:px-8">
-          <div className="mx-auto flex w-full max-w-[1200px] items-center justify-between gap-4">
+        <header className="sticky top-0 z-40 border-b border-white/5 bg-void/60 px-4 py-4 backdrop-blur-xl md:px-8">
+          <div className="mx-auto flex w-full max-w-[1240px] items-center justify-between gap-4">
             <div>
-              <p className="section-label">Raqeem</p>
-              <p className="text-sm text-[#A0A0A0]">Quiet authority for your money.</p>
+              <p className="eyebrow">Raqeem</p>
+              <h1 className="font-serif text-2xl font-bold tracking-tight text-white">Workspace</h1>
             </div>
-            <Button className="gap-2" onClick={() => openQuickAdd('expense')}>
-              <Plus className="h-4 w-4" />
-              Add
+            <Button className="h-10 gap-2 px-5 shadow-lg shadow-purple-500/20" onClick={() => openQuickAdd('expense')}>
+              <Plus className="h-4 w-4 stroke-[3]" />
+              <span className="font-semibold">Add</span>
             </Button>
           </div>
-        </div>
+        </header>
 
         {error ? (
           <div className="border-b border-rose-400/20 bg-rose-400/10 px-4 py-3 text-sm text-negative md:px-8">

@@ -4,12 +4,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        void: '#080808',
-        base: '#0F0F0F',
-        surface: '#161616',
-        elevated: '#1E1E1E',
-        subtle: '#242424',
-        overlay: '#2C2C2C',
+        void: '#060606',
+        base: '#0A0A0A',
+        surface: '#121212',
+        elevated: '#1A1A1A',
+        subtle: '#222222',
+        overlay: '#2A2A2A',
         purple: {
           950: '#0D0520',
           900: '#1A0D33',
@@ -23,8 +23,8 @@ module.exports = {
           100: '#EDE9FE',
         },
         positive: '#10B981',
-        negative: '#F87171',
-        warning: '#FBBF24',
+        negative: '#EF4444',
+        warning: '#F59E0B',
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
@@ -35,24 +35,30 @@ module.exports = {
         DEFAULT: '8px',
         lg: '12px',
         xl: '16px',
-        '2xl': '20px',
+        '2xl': '24px',
       },
       boxShadow: {
-        focus: '0 0 0 3px rgba(139, 92, 246, 0.12)',
+        focus: '0 0 0 4px rgba(124, 58, 237, 0.15)',
+        glass: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
       },
       animation: {
-        pulseSoft: 'pulseSoft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        fadeSlide: 'fadeSlide 220ms cubic-bezier(0.16, 1, 0.3, 1)',
+        pulseSoft: 'pulseSoft 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        fadeSlide: 'fadeSlide 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+        glow: 'glow 2s ease-in-out infinite alternate',
       },
       keyframes: {
         pulseSoft: {
           '0%, 100%': { opacity: '1' },
-          '50%': { opacity: '.45' },
+          '50%': { opacity: '.6' },
         },
         fadeSlide: {
-          '0%': { opacity: '0', transform: 'translateY(8px)' },
+          '0%': { opacity: '0', transform: 'translateY(12px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
+        glow: {
+          'from': { 'box-shadow': '0 0 10px rgba(124, 58, 237, 0.1)' },
+          'to': { 'box-shadow': '0 0 20px rgba(124, 58, 237, 0.3)' },
+        }
       },
     },
   },

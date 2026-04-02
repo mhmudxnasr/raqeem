@@ -22,7 +22,6 @@ type SettingsFormValues = z.infer<typeof settingsSchema>;
 
 export function SettingsPage() {
   const user = useAuthStore((state) => state.user);
-  const isDemoMode = useAuthStore((state) => state.isDemoMode);
   const signOut = useAuthStore((state) => state.signOut);
   const accounts = useFinanceStore((state) => state.accounts);
   const categories = useFinanceStore((state) => state.categories);
@@ -67,50 +66,50 @@ export function SettingsPage() {
 
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_320px]">
         <div className="space-y-6">
-          <Card className="space-y-5">
+          <Card className="glass-card border-white/5 space-y-5">
             <div>
-              <p className="section-label">Currency</p>
-              <h3 className="mt-2 text-lg font-semibold text-[#F0F0F0]">USD / EGP exchange rate</h3>
+              <p className="eyebrow">Currency</p>
+              <h3 className="mt-2 text-xl font-bold tracking-tight text-white">USD / EGP conversion</h3>
             </div>
             <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
-              <Input error={errors.usdToEgpRate?.message} label="1 USD equals" {...register('usdToEgpRate')} />
-              <Select error={errors.defaultAccountId?.message} label="Default account" options={accountOptions} {...register('defaultAccountId')} />
+              <Input error={errors.usdToEgpRate?.message} label="1 USD equals" {...register('usdToEgpRate')} className="bg-white/5 border-white/10" />
+              <Select error={errors.defaultAccountId?.message} label="Default account" options={accountOptions} {...register('defaultAccountId')} className="bg-white/5 border-white/10" />
               <Button disabled={isSaving} type="submit">
                 {isSaving ? 'Saving...' : 'Save settings'}
               </Button>
             </form>
           </Card>
 
-          <Card className="space-y-4">
-            <p className="section-label">Accounts</p>
-            <div className="divide-y divide-white/5">
+          <Card className="glass-card border-white/5 space-y-4">
+            <p className="eyebrow">Accounts</p>
+            <div className="divide-y divide-white/10 pt-2">
               {accounts
                 .filter((account) => account.deletedAt === null)
                 .map((account) => (
                   <div key={account.id} className="flex items-center justify-between gap-4 py-4">
                     <div>
-                      <p className="text-sm font-medium text-[#F0F0F0]">{account.name}</p>
-                      <p className="text-xs uppercase tracking-[0.08em] text-[#5A5A5A]">{account.type}</p>
+                      <p className="text-sm font-semibold text-white">{account.name}</p>
+                      <p className="text-[10px] uppercase tracking-wider text-[#5A5A5A]">{account.type}</p>
                     </div>
-                    <span className="font-mono text-sm text-[#A0A0A0]">{formatAmount(account.balanceCents, account.currency)}</span>
+                    <span className="font-serif text-base font-medium text-white/90">{formatAmount(account.balanceCents, account.currency)}</span>
                   </div>
                 ))}
             </div>
           </Card>
 
-          <Card className="space-y-4">
-            <p className="section-label">Categories</p>
-            <div className="grid gap-3 md:grid-cols-2">
+          <Card className="glass-card border-white/5 space-y-4">
+            <p className="eyebrow">Ledger Categories</p>
+            <div className="grid gap-3 md:grid-cols-2 pt-2">
               {categories
                 .filter((category) => category.deletedAt === null)
                 .map((category) => (
-                  <div key={category.id} className="rounded-xl border border-white/5 bg-surface/50 p-4">
+                  <div key={category.id} className="rounded-xl border border-white/5 bg-white/[0.02] p-4 transition-colors hover:bg-white/[0.04]">
                     <div className="flex items-center justify-between gap-4">
-                      <p className="text-sm font-medium text-[#F0F0F0]">{category.name}</p>
+                      <p className="text-sm font-semibold text-white">{category.name}</p>
                       <Badge tone={category.type === 'income' ? 'positive' : 'accent'}>{category.type}</Badge>
                     </div>
-                    <p className="mt-2 text-xs text-[#5A5A5A]">
-                      {category.budgetCents ? `Budget ${formatAmount(category.budgetCents, 'USD')}` : 'No monthly budget'}
+                    <p className="mt-2 text-[10px] uppercase tracking-wider text-[#5A5A5A]">
+                      {category.budgetCents ? `Allocated ${formatAmount(category.budgetCents, 'USD')}` : 'No monthly budget'}
                     </p>
                   </div>
                 ))}
@@ -119,17 +118,19 @@ export function SettingsPage() {
         </div>
 
         <div className="space-y-6">
-          <Card className="space-y-4">
-            <p className="section-label">Account</p>
-            <div className="space-y-2">
-              <p className="text-sm font-medium text-[#F0F0F0]">{user?.email}</p>
-              <Badge tone={isDemoMode ? 'warning' : 'accent'}>{isDemoMode ? 'Demo mode' : 'Supabase connected'}</Badge>
+          <Card className="glass-card border-white/5 space-y-4">
+            <p className="eyebrow">Session</p>
+            <div className="space-y-3 pt-2">
+              <div>
+                <p className="text-sm font-bold tracking-tight text-white">{user?.email}</p>
+                <div className="mt-1">
+                  <Badge tone="accent">Supabase Authenticated</Badge>
+                </div>
+              </div>
             </div>
-            {!isDemoMode ? (
-              <Button onClick={() => void signOut()} variant="secondary">
-                Sign out
-              </Button>
-            ) : null}
+            <Button className="w-full" onClick={() => void signOut()} variant="secondary">
+              Sign out
+            </Button>
           </Card>
         </div>
       </div>

@@ -16,6 +16,7 @@ interface FinanceState extends FinanceSnapshot {
   isLoading: boolean;
   isSaving: boolean;
   error: string | null;
+  reset: () => void;
   bootstrap: () => Promise<void>;
   refresh: () => Promise<void>;
   setSelectedMonth: (month: string) => void;
@@ -27,28 +28,39 @@ interface FinanceState extends FinanceSnapshot {
   clearError: () => void;
 }
 
-const initialState: FinanceSnapshot = {
-  accounts: [],
-  categories: [],
-  transactions: [],
-  transfers: [],
-  goals: [],
-  subscriptions: [],
-  settings: {
-    usdToEgpRate: 52,
-    defaultAccountId: null,
-    analyticsCurrency: 'USD',
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-  },
-};
+function createInitialSnapshot(): FinanceSnapshot {
+  return {
+    accounts: [],
+    categories: [],
+    transactions: [],
+    transfers: [],
+    goals: [],
+    subscriptions: [],
+    settings: {
+      usdToEgpRate: 52,
+      defaultAccountId: null,
+      analyticsCurrency: 'USD',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    },
+  };
+}
 
 export const useFinanceStore = create<FinanceState>((set, get) => ({
-  ...initialState,
+  ...createInitialSnapshot(),
   selectedMonth: getCurrentMonthKey(),
-  isLoading: true,
+  isLoading: false,
   isSaving: false,
   error: null,
+  reset: () => {
+    set({
+      ...createInitialSnapshot(),
+      selectedMonth: getCurrentMonthKey(),
+      isLoading: false,
+      isSaving: false,
+      error: null,
+    });
+  },
   bootstrap: async () => {
     set({ isLoading: true, error: null });
 

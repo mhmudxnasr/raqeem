@@ -6,12 +6,11 @@ import { useFinanceStore } from '../store/useFinanceStore';
 
 export function useRealtime(): void {
   const user = useAuthStore((state) => state.user);
-  const isDemoMode = useAuthStore((state) => state.isDemoMode);
   const refresh = useFinanceStore((state) => state.refresh);
 
   useEffect(() => {
     const client = supabase;
-    if (isDemoMode || !client || !user) {
+    if (!client || !user) {
       return undefined;
     }
 
@@ -40,5 +39,5 @@ export function useRealtime(): void {
     return () => {
       void client.removeChannel(channel);
     };
-  }, [isDemoMode, refresh, user]);
+  }, [refresh, user]);
 }

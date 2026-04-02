@@ -10,10 +10,13 @@ import { formatMonthLabel } from '../lib/format';
 import { useFinanceStore } from '../store/useFinanceStore';
 
 const tooltipStyle = {
-  backgroundColor: 'var(--bg-overlay)',
-  border: '1px solid rgba(255,255,255,0.09)',
+  backgroundColor: 'rgba(10, 10, 10, 0.8)',
+  backdropFilter: 'blur(16px)',
+  border: '1px solid rgba(255, 255, 255, 0.08)',
   borderRadius: '12px',
-  color: 'var(--text-primary)',
+  color: '#FFFFFF',
+  padding: '8px 12px',
+  boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.5)',
 };
 
 export function AnalyticsPage() {
@@ -43,77 +46,91 @@ export function AnalyticsPage() {
       />
 
       <div className="grid gap-6 2xl:grid-cols-[minmax(0,1.1fr)_minmax(0,1.1fr)_340px]">
-        <Card className="space-y-4">
-          <div>
-            <p className="section-label">Spending by category</p>
-            <h3 className="mt-2 text-lg font-semibold text-[#F0F0F0]">Current month mix</h3>
+        <Card className="glass-card flex flex-col border-white/5 p-6 h-fit sticky top-24">
+          <div className="mb-6">
+            <p className="eyebrow">Composition</p>
+            <h3 className="mt-1 text-lg font-bold tracking-tight text-white">Spending by Category</h3>
           </div>
-          <div className="h-[280px]">
+          <div className="h-[280px] w-full">
             <ResponsiveContainer height="100%" width="100%">
               <PieChart>
-                <Pie data={spendingByCategory} dataKey="amountCents" innerRadius={72} outerRadius={104} paddingAngle={2}>
+                <Pie 
+                  data={spendingByCategory} 
+                  dataKey="amountCents" 
+                  innerRadius={72} 
+                  outerRadius={104} 
+                  paddingAngle={4}
+                  stroke="none"
+                >
                   {spendingByCategory.map((entry) => (
-                    <Cell fill={entry.color} key={entry.categoryId} />
+                    <Cell fill={entry.color} key={entry.categoryId} className="hover:opacity-80 transition-opacity cursor-pointer" />
                   ))}
                 </Pie>
                 <Tooltip contentStyle={tooltipStyle} />
               </PieChart>
             </ResponsiveContainer>
           </div>
-          <div className="space-y-3">
+          <div className="mt-6 space-y-2">
             {spendingByCategory.map((entry) => (
-              <div key={entry.categoryId} className="flex items-center justify-between gap-4 text-sm text-[#A0A0A0]">
-                <span className="flex items-center gap-3">
-                  <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: entry.color }} />
+              <div key={entry.categoryId} className="group flex items-center justify-between gap-4 rounded-lg p-2 transition-colors hover:bg-white/5 text-sm text-[#A0A0A0]">
+                <span className="flex items-center gap-3 font-medium text-[#A0A0A0] group-hover:text-white transition-colors">
+                  <span className="h-2.5 w-2.5 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.2)]" style={{ backgroundColor: entry.color }} />
                   {entry.name}
                 </span>
-                <span className="font-mono text-[#F0F0F0]">${(entry.amountCents / 100).toFixed(2)}</span>
+                <span className="font-serif text-white/90 font-medium">${(entry.amountCents / 100).toFixed(2)}</span>
               </div>
             ))}
           </div>
         </Card>
 
         <div className="space-y-6">
-          <Card className="space-y-4">
-            <div>
-              <p className="section-label">Income vs expenses</p>
-              <h3 className="mt-2 text-lg font-semibold text-[#F0F0F0]">Last six months</h3>
+          <Card className="glass-card border-white/5 p-6">
+            <div className="mb-6">
+              <p className="eyebrow">Comparison</p>
+              <h3 className="mt-1 text-lg font-bold tracking-tight text-white">Income vs Expenses</h3>
             </div>
             <div className="h-[240px]">
               <ResponsiveContainer height="100%" width="100%">
                 <BarChart data={series}>
-                  <CartesianGrid stroke="rgba(255,255,255,0.05)" strokeDasharray="3 3" />
-                  <XAxis dataKey="label" tick={{ fill: 'var(--text-muted)', fontSize: 11 }} />
-                  <YAxis tick={{ fill: 'var(--text-muted)', fontSize: 11 }} />
-                  <Tooltip contentStyle={tooltipStyle} />
-                  <Bar dataKey="incomeCents" fill="var(--positive)" radius={[6, 6, 0, 0]} />
-                  <Bar dataKey="expenseCents" fill="var(--negative)" radius={[6, 6, 0, 0]} />
+                  <CartesianGrid stroke="rgba(255,255,255,0.03)" strokeDasharray="3 3" vertical={false} />
+                  <XAxis dataKey="label" axisLine={false} tickLine={false} tick={{ fill: '#5A5A5A', fontSize: 10, fontWeight: 600 }} />
+                  <YAxis axisLine={false} tickLine={false} tick={{ fill: '#5A5A5A', fontSize: 10, fontWeight: 600 }} />
+                  <Tooltip cursor={{ fill: 'rgba(255,255,255,0.03)' }} contentStyle={tooltipStyle} />
+                  <Bar dataKey="incomeCents" fill="#10B981" radius={[4, 4, 0, 0]} barSize={24} />
+                  <Bar dataKey="expenseCents" fill="#EF4444" radius={[4, 4, 0, 0]} barSize={24} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
           </Card>
 
-          <Card className="space-y-4">
-            <div>
-              <p className="section-label">Net worth over time</p>
-              <h3 className="mt-2 text-lg font-semibold text-[#F0F0F0]">Six month trajectory</h3>
+          <Card className="glass-card border-white/5 p-6">
+            <div className="mb-6">
+              <p className="eyebrow">Growth</p>
+              <h3 className="mt-1 text-lg font-bold tracking-tight text-white">Net Worth Trend</h3>
             </div>
             <div className="h-[220px]">
               <ResponsiveContainer height="100%" width="100%">
                 <LineChart data={series}>
-                  <CartesianGrid stroke="rgba(255,255,255,0.05)" strokeDasharray="3 3" />
-                  <XAxis dataKey="label" tick={{ fill: 'var(--text-muted)', fontSize: 11 }} />
-                  <YAxis tick={{ fill: 'var(--text-muted)', fontSize: 11 }} />
+                  <CartesianGrid stroke="rgba(255,255,255,0.03)" strokeDasharray="3 3" vertical={false} />
+                  <XAxis dataKey="label" axisLine={false} tickLine={false} tick={{ fill: '#5A5A5A', fontSize: 10, fontWeight: 600 }} />
+                  <YAxis axisLine={false} tickLine={false} tick={{ fill: '#5A5A5A', fontSize: 10, fontWeight: 600 }} />
                   <Tooltip contentStyle={tooltipStyle} />
-                  <Line dataKey="netWorthCents" dot={false} stroke="var(--purple-400)" strokeWidth={2.5} type="monotone" />
+                  <Line 
+                    dataKey="netWorthCents" 
+                    dot={{ r: 4, fill: '#8B5CF6', strokeWidth: 0 }} 
+                    activeDot={{ r: 6, fill: '#8B5CF6', strokeWidth: 0 }}
+                    stroke="#8B5CF6" 
+                    strokeWidth={3} 
+                    type="monotone" 
+                  />
                 </LineChart>
               </ResponsiveContainer>
             </div>
           </Card>
 
-          <Card className="space-y-4">
-            <p className="section-label">Budget hotspots</p>
-            <div className="space-y-3">
+          <Card className="glass-card border-white/5 p-6">
+            <p className="eyebrow mb-4">Budget Criticality</p>
+            <div className="space-y-4">
               {budgets.map((summary) => (
                 <BudgetProgress key={summary.categoryId} summary={summary} />
               ))}

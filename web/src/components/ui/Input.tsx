@@ -1,4 +1,4 @@
-import type { InputHTMLAttributes } from 'react';
+import { forwardRef, type InputHTMLAttributes } from 'react';
 
 import { cx } from '../../lib/cx';
 
@@ -7,14 +7,14 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: string | undefined;
 }
 
-export function Input({ label, error, className, id, ...props }: InputProps) {
+export const Input = forwardRef<HTMLInputElement, InputProps>(function Input({ label, error, className, id, ...props }, ref) {
   const inputId = id ?? props.name;
 
   return (
     <label className="flex flex-col gap-2">
       {label ? <span className="section-label">{label}</span> : null}
-      <input id={inputId} className={cx('input', className)} {...props} />
+      <input ref={ref} id={inputId} className={cx('input', className)} {...props} />
       {error ? <span className="text-xs text-negative">{error}</span> : null}
     </label>
   );
-}
+});

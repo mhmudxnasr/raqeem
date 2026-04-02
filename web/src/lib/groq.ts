@@ -1,37 +1,21 @@
-import { answerFinanceQuestion, buildMonthlyInsights, getCurrentMonthKey } from './analytics';
 import { isSupabaseConfigured, supabase } from './supabase';
-import type { AIRequestPayload, AIResponsePayload, FinanceSnapshot } from '../types';
+import type { AIRequestPayload, AIResponsePayload } from '../types';
 
-export async function requestAiResponse(
-  payload: AIRequestPayload,
-  snapshot: FinanceSnapshot,
-): Promise<AIResponsePayload> {
-  if (isSupabaseConfigured && supabase) {
-    const { data, error } = await supabase.functions.invoke<{ content: string }>('ai-insights', {
-      body: payload,
-    });
-
-    if (!error && data?.content) {
-      return {
-        content: data.content,
-        source: 'supabase',
-      };
-    }
+export async function requestAiResponse(payload: AIRequestPayload): Promise<AIResponsePayload> {
+  if (!isSupabaseConfigured || !supabase) {
+    throw new Error('AI unavailable — Supabase is not configured.');
   }
 
-  const month = payload.month ?? getCurrentMonthKey();
+  const { data, error } = await supabase.functions.invoke<{ content: string }>('ai-insights', {
+    body: payload,
+  });
 
-  if (payload.type === 'monthly_insight') {
-    return {
-      content: buildMonthlyInsights(snapshot, month)
-        .map((line) => `• ${line}`)
-        .join('\n'),
-      source: 'mock',
-    };
+  if (error || !data?.content) {
+    throw new Error(error?.message ?? 'AI unavailable — the edge function did not return content.');
   }
 
   return {
-    content: answerFinanceQuestion(snapshot, month, payload.message ?? ''),
-    source: 'mock',
+    content: data.content,
+    source: 'supabase',
   };
 }

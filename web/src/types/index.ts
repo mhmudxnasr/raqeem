@@ -225,5 +225,5 @@ export interface AIRequestPayload {
 
 export interface AIResponsePayload {
   content: string;
-  source: 'mock' | 'supabase';
+  source: 'supabase';
 }

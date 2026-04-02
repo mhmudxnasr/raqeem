@@ -122,11 +122,11 @@ function TransactionDetailPanel({
   };
 
   return (
-    <Card className="space-y-5">
+    <Card className="glass-card border-white/5 space-y-6">
       <div>
-        <p className="section-label">Transaction detail</p>
-        <h3 className="mt-2 text-lg font-semibold text-[#F0F0F0]">{entry.title}</h3>
-        <p className="mt-1 text-sm text-[#A0A0A0]">Edit the underlying record directly from the ledger.</p>
+        <p className="eyebrow">Transaction Detail</p>
+        <h3 className="mt-2 text-xl font-bold tracking-tight text-white">{entry.title}</h3>
+        <p className="mt-2 text-sm leading-relaxed text-[#A0A0A0]">Edit the underlying record directly from the ledger.</p>
       </div>
 
       <form className="space-y-4" onSubmit={handleSubmit(submit)}>
@@ -204,15 +204,16 @@ export function TransactionsPage() {
         actions={<Button onClick={() => openQuickAdd('expense')}>Add entry</Button>}
       />
 
-      <Card className="grid gap-4 md:grid-cols-2 xl:grid-cols-6">
+      <Card className="glass-card grid gap-4 border-white/5 md:grid-cols-2 xl:grid-cols-6 mb-6">
         <Input
           label="Search"
           onChange={(event) => setFilters((current) => ({ ...current, search: event.target.value }))}
           placeholder="Category, note, amount..."
           value={filters.search}
+          className="bg-white/5 border-white/10"
         />
-        <Select label="Account" onChange={(event) => setFilters((current) => ({ ...current, accountId: event.target.value }))} options={accountOptions} value={filters.accountId} />
-        <Select label="Category" onChange={(event) => setFilters((current) => ({ ...current, categoryId: event.target.value }))} options={categoryOptions} value={filters.categoryId} />
+        <Select label="Account" onChange={(event) => setFilters((current) => ({ ...current, accountId: event.target.value }))} options={accountOptions} value={filters.accountId} className="bg-white/5 border-white/10" />
+        <Select label="Category" onChange={(event) => setFilters((current) => ({ ...current, categoryId: event.target.value }))} options={categoryOptions} value={filters.categoryId} className="bg-white/5 border-white/10" />
         <Select
           label="Type"
           onChange={(event) =>
@@ -225,9 +226,10 @@ export function TransactionsPage() {
             { value: 'transfer', label: 'Transfer' },
           ]}
           value={filters.entryType}
+          className="bg-white/5 border-white/10"
         />
-        <Input label="From" onChange={(event) => setFilters((current) => ({ ...current, dateFrom: event.target.value }))} type="date" value={filters.dateFrom} />
-        <Input label="To" onChange={(event) => setFilters((current) => ({ ...current, dateTo: event.target.value }))} type="date" value={filters.dateTo} />
+        <Input label="From" onChange={(event) => setFilters((current) => ({ ...current, dateFrom: event.target.value }))} type="date" value={filters.dateFrom} className="bg-white/5 border-white/10" />
+        <Input label="To" onChange={(event) => setFilters((current) => ({ ...current, dateTo: event.target.value }))} type="date" value={filters.dateTo} className="bg-white/5 border-white/10" />
       </Card>
 
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1.4fr)_360px]">
