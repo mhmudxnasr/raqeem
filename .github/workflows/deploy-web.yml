@@ -22,8 +22,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
-      VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+      RAW_VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+      RAW_VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
 
     steps:
       - name: Check out repository
@@ -47,7 +47,8 @@ jobs:
         run: |
           normalize() {
             local name="$1"
-            local value="${!name}"
+            local raw_name="RAW_${name}"
+            local value="${!raw_name}"
             value="$(printf '%s' "$value" | perl -CS -pe 's/^\x{FEFF}//; s/^\s+|\s+$//g')"
             test -n "$value" || { echo "Missing $name"; exit 1; }
             if printf '%s' "$value" | LC_ALL=C grep -q '[^ -~]'; then
