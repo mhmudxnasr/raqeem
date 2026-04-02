@@ -1,0 +1,205 @@
+﻿> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:checkKotlinGradlePluginConfigurationErrors
+> Task :app:generateDebugBuildConfig UP-TO-DATE
+> Task :app:checkDebugAarMetadata UP-TO-DATE
+> Task :app:generateDebugResValues UP-TO-DATE
+> Task :app:mapDebugSourceSetPaths UP-TO-DATE
+> Task :app:generateDebugResources UP-TO-DATE
+> Task :app:mergeDebugResources UP-TO-DATE
+> Task :app:packageDebugResources UP-TO-DATE
+> Task :app:parseDebugLocalResources UP-TO-DATE
+> Task :app:createDebugCompatibleScreenManifests UP-TO-DATE
+> Task :app:extractDeepLinksDebug UP-TO-DATE
+> Task :app:processDebugMainManifest UP-TO-DATE
+> Task :app:processDebugManifest UP-TO-DATE
+> Task :app:processDebugManifestForPackage UP-TO-DATE
+> Task :app:processDebugResources UP-TO-DATE
+> Task :app:kspDebugKotlin UP-TO-DATE
+> Task :app:javaPreCompileDebug UP-TO-DATE
+> Task :app:mergeDebugShaders UP-TO-DATE
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets UP-TO-DATE
+> Task :app:compressDebugAssets UP-TO-DATE
+> Task :app:desugarDebugFileDependencies UP-TO-DATE
+> Task :app:checkDebugDuplicateClasses UP-TO-DATE
+> Task :app:mergeDebugStartupProfile UP-TO-DATE
+> Task :app:mergeExtDexDebug UP-TO-DATE
+> Task :app:mergeLibDexDebug UP-TO-DATE
+> Task :app:mergeDebugJniLibFolders UP-TO-DATE
+> Task :app:mergeDebugNativeLibs UP-TO-DATE
+> Task :app:stripDebugDebugSymbols UP-TO-DATE
+> Task :app:validateSigningDebug UP-TO-DATE
+> Task :app:writeDebugAppMetadata UP-TO-DATE
+> Task :app:writeDebugSigningConfigVersions UP-TO-DATE
+
+> Task :app:compileDebugKotlin FAILED
+.\gradlew.bat : e: 
+file:///E:/Projects
+/raqeem/android/app
+/src/main/java/com/
+raqeem/app/presenta
+tion/navigation/Raq
+eemNavHost.kt:101:1
+4 Unresolved 
+reference: 
+fillMaxSize
+At line:1 char:63
++ ... 
+Android\Android 
+Studio\jbr"; 
+.\gradlew.bat 
+assembleDebug 2>&1 
+| Out-F ...
++                  
+                ~~~
+~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~
+    + CategoryInfo 
+             : No  
+  tSpecified: (e   
+ : file:///E:/P    
+...ce: fillMax    
+Size:String) [    
+], RemoteExcep    
+tion
+    + FullyQualifi 
+   edErrorId : Na  
+  tiveCommandErr   
+ or
+ 
+e: file:///E:/Proje
+cts/raqeem/android/
+app/src/main/java/c
+om/raqeem/app/prese
+ntation/navigation/
+RaqeemNavHost.kt:13
+5:29 Unresolved 
+reference: 
+fillMaxSize
+e: file:///E:/Proje
+cts/raqeem/android/
+app/src/main/java/c
+om/raqeem/app/prese
+ntation/navigation/
+RaqeemNavHost.kt:17
+8:18 Unresolved 
+reference: 
+fillMaxSize
+e: file:///E:/Proje
+cts/raqeem/android/
+app/src/main/java/c
+om/raqeem/app/prese
+ntation/navigation/
+RaqeemNavHost.kt:18
+5:37 Unresolved 
+reference: 
+fillMaxSize
+e: file:///E:/Proje
+cts/raqeem/android/
+app/src/main/java/c
+om/raqeem/app/prese
+ntation/navigation/
+RaqeemNavHost.kt:35
+7:18 Unresolved 
+reference: 
+fillMaxSize
+e: file:///E:/Proje
+cts/raqeem/android/
+app/src/main/java/c
+om/raqeem/app/prese
+ntation/navigation/
+RaqeemNavHost.kt:40
+1:37 Unresolved 
+reference: 
+fillMaxWidth
+e: file:///E:/Proje
+cts/raqeem/android/
+app/src/main/java/c
+om/raqeem/app/prese
+ntation/navigation/
+RaqeemNavHost.kt:47
+9:14 Unresolved 
+reference: navigati
+onBarsPadding
+e: file:///E:/Proje
+cts/raqeem/android/
+app/src/main/java/c
+om/raqeem/app/prese
+ntation/navigation/
+RaqeemNavHost.kt:48
+1:40 Unresolved 
+reference: toPx
+e: file:///E:/Proje
+cts/raqeem/android/
+app/src/main/java/c
+om/raqeem/app/prese
+ntation/navigation/
+RaqeemNavHost.kt:48
+2:17 Unresolved 
+reference: drawLine
+e: file:///E:/Proje
+cts/raqeem/android/
+app/src/main/java/c
+om/raqeem/app/prese
+ntation/navigation/
+RaqeemNavHost.kt:48
+5:34 Unresolved 
+reference: size
+e: file:///E:/Proje
+cts/raqeem/android/
+app/src/main/java/c
+om/raqeem/app/prese
+ntation/ui/screens/
+home/HomeScreen.kt:
+347:30 Unresolved 
+reference: ripple
+e: file:///E:/Proje
+cts/raqeem/android/
+app/src/main/java/c
+om/raqeem/app/prese
+ntation/ui/screens/
+home/HomeScreen.kt:
+374:30 Unresolved 
+reference: ripple
+
+FAILURE: Build 
+failed with an 
+exception.
+
+* What went wrong:
+Execution failed 
+for task ':app:comp
+ileDebugKotlin'.
+> A failure 
+occurred while 
+executing org.jetbr
+ains.kotlin.compile
+rRunner.GradleCompi
+lerRunnerWithWorker
+s$GradleKotlinCompi
+lerWorkAction
+   > Compilation 
+error. See log for 
+more details
+
+* Try:
+> Run with 
+--stacktrace 
+option to get the 
+stack trace.
+> Run with --info 
+or --debug option 
+to get more log 
+output.
+> Run with --scan 
+to get full 
+insights.
+> Get more help at 
+https://help.gradle
+.org.
+
+BUILD FAILED in 21s
+32 actionable tasks: 2 executed, 30 up-to-date

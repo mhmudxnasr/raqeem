@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ink_950">#FF080808</color>
+    <color name="bg_base">#FF0F0F0F</color>
+    <color name="bg_surface">#FF161616</color>
+    <color name="purple_500">#FF7C3AED</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>

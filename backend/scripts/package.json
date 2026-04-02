@@ -1,0 +1,14 @@
+{
+  "name": "raqeem-notion-migration",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "One-time migration from Notion Finance Tracker to Raqeem Supabase",
+  "scripts": {
+    "migrate": "node migrate-notion.mjs"
+  },
+  "dependencies": {
+    "@notionhq/client": "^2.2.15",
+    "@supabase/supabase-js": "^2.45.0",
+    "dotenv": "^16.4.5"
+  }
+}

@@ -1,0 +1,34 @@
+-- ============================================================
+-- Raqeem — 004_seed_data.sql
+-- Initial accounts, categories, and settings.
+-- Replace {{USER_ID}} with your actual auth.uid() before running.
+-- ============================================================
+
+-- Accounts
+INSERT INTO accounts (user_id, name, type, currency, initial_amount_cents, sort_order) VALUES
+  ('00000000-0000-0000-0000-000000000000', 'Binance Free',    'checking', 'USD', 0, 1),
+  ('00000000-0000-0000-0000-000000000000', 'Binance Savings', 'saving',   'USD', 0, 2),
+  ('00000000-0000-0000-0000-000000000000', 'Wallet',          'cash',     'EGP', 0, 3),
+  ('00000000-0000-0000-0000-000000000000', 'Charity',         'checking', 'USD', 0, 4);
+
+-- Income categories
+INSERT INTO categories (user_id, name, type, icon, color) VALUES
+  ('00000000-0000-0000-0000-000000000000', 'Outlier',   'income', 'briefcase',   '#8B5CF6'),
+  ('00000000-0000-0000-0000-000000000000', 'Alignerr',  'income', 'briefcase',   '#8B5CF6'),
+  ('00000000-0000-0000-0000-000000000000', 'Freelance', 'income', 'code',        '#8B5CF6'),
+  ('00000000-0000-0000-0000-000000000000', 'Other',     'income', 'plus-circle', '#A0A0A0');
+
+-- Expense categories
+INSERT INTO categories (user_id, name, type, icon, color, budget_cents) VALUES
+  ('00000000-0000-0000-0000-000000000000', 'Food & Dining',   'expense', 'utensils',     '#F87171', 12000),
+  ('00000000-0000-0000-0000-000000000000', 'Transportation',  'expense', 'car',          '#FBBF24',  5000),
+  ('00000000-0000-0000-0000-000000000000', 'Personal Care',   'expense', 'heart',        '#8B5CF6',  3000),
+  ('00000000-0000-0000-0000-000000000000', 'Entertainment',   'expense', 'tv',           '#10B981',  3000),
+  ('00000000-0000-0000-0000-000000000000', 'Utilities',       'expense', 'zap',          '#FBBF24',  2000),
+  ('00000000-0000-0000-0000-000000000000', 'Shopping',        'expense', 'shopping-bag', '#F87171',  8000),
+  ('00000000-0000-0000-0000-000000000000', 'Education',       'expense', 'book',         '#8B5CF6',  5000),
+  ('00000000-0000-0000-0000-000000000000', 'Health',          'expense', 'activity',     '#10B981',  5000),
+  ('00000000-0000-0000-0000-000000000000', 'Miscellaneous',   'expense', 'circle',       '#A0A0A0',  3000);
+
+-- Settings
+INSERT INTO settings (user_id, usd_to_egp_rate) VALUES ('00000000-0000-0000-0000-000000000000', 52.0);

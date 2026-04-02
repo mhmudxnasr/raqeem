@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Raqeem" parent="android:Theme.Material.NoActionBar">
+        <item name="android:statusBarColor">#FF080808</item>
+        <item name="android:navigationBarColor">#FF161616</item>
+        <item name="android:windowBackground">#FF0F0F0F</item>
+    </style>
+
+    <style name="Theme.Raqeem.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#FF080808</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash_logo</item>
+        <item name="postSplashScreenTheme">@style/Theme.Raqeem</item>
+    </style>
+</resources>

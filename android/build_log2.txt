@@ -1,0 +1,66 @@
+﻿> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:checkKotlinGradlePluginConfigurationErrors
+> Task :app:generateDebugBuildConfig UP-TO-DATE
+> Task :app:checkDebugAarMetadata UP-TO-DATE
+> Task :app:generateDebugResValues UP-TO-DATE
+> Task :app:mapDebugSourceSetPaths UP-TO-DATE
+> Task :app:generateDebugResources UP-TO-DATE
+> Task :app:mergeDebugResources UP-TO-DATE
+> Task :app:packageDebugResources UP-TO-DATE
+> Task :app:parseDebugLocalResources UP-TO-DATE
+> Task :app:createDebugCompatibleScreenManifests UP-TO-DATE
+> Task :app:extractDeepLinksDebug UP-TO-DATE
+> Task :app:processDebugMainManifest UP-TO-DATE
+> Task :app:processDebugManifest UP-TO-DATE
+> Task :app:processDebugManifestForPackage UP-TO-DATE
+> Task :app:processDebugResources UP-TO-DATE
+> Task :app:javaPreCompileDebug UP-TO-DATE
+> Task :app:mergeDebugShaders UP-TO-DATE
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets UP-TO-DATE
+> Task :app:compressDebugAssets UP-TO-DATE
+> Task :app:desugarDebugFileDependencies UP-TO-DATE
+> Task :app:checkDebugDuplicateClasses UP-TO-DATE
+> Task :app:mergeDebugStartupProfile UP-TO-DATE
+> Task :app:mergeExtDexDebug UP-TO-DATE
+> Task :app:mergeLibDexDebug UP-TO-DATE
+> Task :app:mergeDebugJniLibFolders UP-TO-DATE
+> Task :app:mergeDebugNativeLibs UP-TO-DATE
+> Task :app:stripDebugDebugSymbols UP-TO-DATE
+> Task :app:validateSigningDebug UP-TO-DATE
+> Task :app:writeDebugAppMetadata UP-TO-DATE
+> Task :app:writeDebugSigningConfigVersions UP-TO-DATE
+> Task :app:kspDebugKotlin
+> Task :app:compileDebugKotlin
+w: file:///E:/Projects/raqeem/android/app/src/main/java/com/raqeem/app/data/repository/SupabaseAuthRepository.kt:82:33 'modifyUser(Boolean = ..., String? = ..., UserUpdateBuilder.() -> Unit): UserInfo' is deprecated. Use updateUser instead
+w: file:///E:/Projects/raqeem/android/app/src/main/java/com/raqeem/app/di/AppServicesModule.kt:10:33 'MasterKeys' is deprecated. Deprecated in Java
+w: file:///E:/Projects/raqeem/android/app/src/main/java/com/raqeem/app/di/AppServicesModule.kt:48:30 'MasterKeys' is deprecated. Deprecated in Java
+w: file:///E:/Projects/raqeem/android/app/src/main/java/com/raqeem/app/di/AppServicesModule.kt:48:53 'MasterKeys' is deprecated. Deprecated in Java
+w: file:///E:/Projects/raqeem/android/app/src/main/java/com/raqeem/app/di/AppServicesModule.kt:49:43 'create(String, String, Context, EncryptedSharedPreferences.PrefKeyEncryptionScheme, EncryptedSharedPreferences.PrefValueEncryptionScheme): SharedPreferences' is deprecated. Deprecated in Java
+w: file:///E:/Projects/raqeem/android/app/src/main/java/com/raqeem/app/presentation/ui/components/LedgerComponents.kt:237:53 'CompareArrows: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Rounded.CompareArrows
+w: file:///E:/Projects/raqeem/android/app/src/main/java/com/raqeem/app/presentation/ui/components/LedgerComponents.kt:297:5 Parameter 'iconTint' is never used
+w: file:///E:/Projects/raqeem/android/app/src/main/java/com/raqeem/app/presentation/ui/screens/home/HomeScreen.kt:199:57 'ReceiptLong: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Rounded.ReceiptLong
+w: file:///E:/Projects/raqeem/android/app/src/main/java/com/raqeem/app/presentation/ui/screens/home/HomeScreen.kt:398:35 Parameter 'onAddExpense' is never used
+w: file:///E:/Projects/raqeem/android/app/src/main/java/com/raqeem/app/presentation/ui/screens/home/HomeScreen.kt:407:41 'ReceiptLong: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Rounded.ReceiptLong
+w: file:///E:/Projects/raqeem/android/app/src/main/java/com/raqeem/app/presentation/ui/screens/transaction/TransactionsScreen.kt:85:15 This declaration is in a preview state and can be changed in a backwards-incompatible manner with a best-effort migration. Its usage should be marked with '@kotlinx.coroutines.FlowPreview' or '@OptIn(kotlinx.coroutines.FlowPreview::class)' if you accept the drawback of relying on preview API
+w: file:///E:/Projects/raqeem/android/app/src/main/java/com/raqeem/app/presentation/ui/theme/Theme.kt:38:20 'setter for statusBarColor: Int' is deprecated. Deprecated in Java
+w: file:///E:/Projects/raqeem/android/app/src/main/java/com/raqeem/app/presentation/ui/theme/Theme.kt:39:20 'setter for navigationBarColor: Int' is deprecated. Deprecated in Java
+
+> Task :app:compileDebugJavaWithJavac
+> Task :app:hiltAggregateDepsDebug UP-TO-DATE
+> Task :app:hiltJavaCompileDebug
+> Task :app:processDebugJavaRes
+> Task :app:transformDebugClassesWithAsm
+> Task :app:mergeDebugJavaResource
+> Task :app:dexBuilderDebug
+> Task :app:mergeDebugGlobalSynthetics UP-TO-DATE
+> Task :app:mergeProjectDexDebug
+> Task :app:packageDebug
+> Task :app:createDebugApkListingFileRedirect UP-TO-DATE
+> Task :app:assembleDebug
+
+BUILD SUCCESSFUL in 56s
+43 actionable tasks: 11 executed, 32 up-to-date

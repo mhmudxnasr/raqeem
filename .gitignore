@@ -1,0 +1,72 @@
+# IDE / Local
+.claude/
+.gemini/
+.idea/
+.vscode/
+*.local
+*.log
+*.tmp
+nul
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Dependency directories
+node_modules/
+**/node_modules/
+jspm_packages/
+web/node_modules/
+backend/node_modules/
+.gradle/
+**/.gradle/
+**/gradle-user-home/
+.gradle-user-home/
+android/.gradle-user-home/
+**/build/
+**/bin/
+**/obj/
+
+# Environment files (SECRETS)
+.env
+.env.local
+.env.*.local
+**/.env
+**/.env.local
+**/.env.*.local
+backend/scripts/.env
+backend/scripts/.env.local
+
+# API Keys and Secrets (General)
+credentials.json
+client_secret.json
+*.pem
+*.key
+*.pub
+*.cert
+*.cer
+*.p12
+*.pfx
+secrets.xml
+
+# Android build artifacts
+android/app/build/
+android/build/
+android/local.properties
+android/raqeem-device.db
+android/captures/
+*.apk
+*.aab
+*.keystore
+!debug.keystore
+
+# Web build artifacts
+web/dist/
+web/dist-ssr/
+web/coverage/
+
+# Backend / Supabase
+backend/supabase/.temp/
+backend/supabase/migrations/.*
