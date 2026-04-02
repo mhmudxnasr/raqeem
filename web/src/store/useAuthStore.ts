@@ -16,6 +16,8 @@ interface AuthState {
 }
 
 const missingConfigMessage = 'Supabase is not configured for the web app. Add the Vite Supabase env vars and reload.';
+const sessionRestoreErrorMessage = 'We could not restore your session. Please sign in again.';
+const sessionInitializationTimeoutMs = 5000;
 
 function buildUserSummary(id: string, email: string | undefined): UserSummary {
   return {
@@ -23,6 +25,31 @@ function buildUserSummary(id: string, email: string | undefined): UserSummary {
     email: email ?? '',
     displayName: email?.split('@')[0] ?? 'Raqeem',
   };
+}
+
+async function getSessionWithTimeout() {
+  if (!supabase) {
+    throw new Error('Supabase client is unavailable.');
+  }
+
+  const client = supabase;
+
+  return await new Promise<Awaited<ReturnType<typeof client.auth.getSession>>>((resolve, reject) => {
+    const timeoutId = setTimeout(() => {
+      reject(new Error('Timed out while restoring the auth session.'));
+    }, sessionInitializationTimeoutMs);
+
+    void client.auth.getSession().then(
+      (result) => {
+        clearTimeout(timeoutId);
+        resolve(result);
+      },
+      (error) => {
+        clearTimeout(timeoutId);
+        reject(error);
+      },
+    );
+  });
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -41,22 +68,27 @@ export const useAuthStore = create<AuthState>((set) => ({
       return;
     }
 
-    const {
-      data: { session },
-      error,
-    } = await supabase.auth.getSession();
+    try {
+      const {
+        data: { session },
+        error,
+      } = await getSessionWithTimeout();
 
-    if (error) {
-      set({ user: null, status: 'ready', error: 'Unable to restore your session.', isConfigured: true });
-      return;
+      if (error) {
+        set({ user: null, status: 'ready', error: sessionRestoreErrorMessage, isConfigured: true });
+        return;
+      }
+
+      set({
+        user: session?.user ? buildUserSummary(session.user.id, session.user.email) : null,
+        status: 'ready',
+        error: null,
+        isConfigured: true,
+      });
+    } catch (error) {
+      console.error('Failed to initialize auth session.', error);
+      set({ user: null, status: 'ready', error: sessionRestoreErrorMessage, isConfigured: true });
     }
-
-    set({
-      user: session?.user ? buildUserSummary(session.user.id, session.user.email) : null,
-      status: 'ready',
-      error: null,
-      isConfigured: true,
-    });
   },
   signIn: async (email, password) => {
     if (!isSupabaseConfigured || !supabase) {
