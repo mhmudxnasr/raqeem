@@ -1,4 +1,4 @@
-# Raqeem (رقم)
+# Raqeem (رقيم)
 
 Raqeem is a sophisticated multi-platform financial tracking and management application designed to give you full control over your personal finances.
 
