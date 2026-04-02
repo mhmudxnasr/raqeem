@@ -12,3 +12,8 @@
 -keepclassmembers class kotlinx.serialization.json.** { *** Companion; }
 -keepclasseswithmembers class kotlinx.serialization.json.** { kotlinx.serialization.KSerializer serializer(...); }
 -keep,includedescriptorclasses class com.raqeem.app.**$$serializer { *; }
+
+# Fix R8 missing class warnings
+-dontwarn com.google.errorprone.annotations.**
+-dontwarn org.slf4j.impl.StaticLoggerBinder
+-dontwarn javax.annotation.**
