@@ -9,9 +9,8 @@ Raqeem is a sophisticated multi-platform financial tracking and management appli
 
 ---
 
-## 🚀 Status
 - **Android**: Production (v0.0.1) 🟢 [Download Latest APK](https://github.com/mhmudxnasr/raqeem/releases/latest)
-- **Web**: Under Development 🛠️
+- **Web**: Production (v0.0.1) 🟢 [Launch Web App](https://mhmudxnasr.github.io/raqeem/#/)
 
 ## 📱 Getting Started (Android)
 
@@ -26,7 +25,7 @@ To install Raqeem on your Android device:
 
 ## ✨ Features
 
-- **Multi-Platform Sync**: Seamlessly sync your financial data across Android and Web (Coming Soon).
+- **Multi-Platform Sync**: Seamlessly sync your financial data across Android and [Web](https://mhmudxnasr.github.io/raqeem/#/).
 - **AI Insights**: Intelligent analysis of your spending habits and financial health.
 - **Secure by Design**: Built on Supabase with robust encryption and privacy-first principles.
 - **Modern UI**: A premium, user-friendly interface designed for clarity and ease of use.
@@ -35,7 +34,7 @@ To install Raqeem on your Android device:
 
 - **Backend**: [Supabase](https://supabase.com/) (PostgreSQL + Edge Functions)
 - **Android**: Native Kotlin with Jetpack Compose
-- **Web**: React + Vite + Tailwind CSS (Work in Progress)
+- **Web**: React + Vite + Tailwind CSS (Production Ready)
 
 ## 🚀 Getting Started
 
@@ -43,7 +42,7 @@ To install Raqeem on your Android device:
 The Android application is currently in production. You can find the source code in the `/android` directory.
 
 ### Web
-The web application is under active development. Stay tuned for updates in the `/web` directory.
+You can access the Raqeem web experience directly at [https://mhmudxnasr.github.io/raqeem/](https://mhmudxnasr.github.io/raqeem/#/). The source code is available in the `/web` directory.
 
 ---
 
